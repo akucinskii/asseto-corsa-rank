@@ -54,7 +54,7 @@ const save = () => {
         name: name || "Unknown",
         time: time,
         car: json.players[0].car,
-        date: new Date().toDateString() + " " + new Date().toLocaleTimeString(),
+        date: new Date().toLocaleString(),
       };
 
       const matchingEntry = database.leaderboard.find(
@@ -62,16 +62,7 @@ const save = () => {
       );
 
       if (!matchingEntry) {
-        newLeaderboard = [
-          ...database.leaderboard,
-          {
-            name: name || "Unknown",
-            time: time,
-            car: json.players[0].car,
-            date: new Date().toLocaleString(),
-            map: json.track,
-          },
-        ];
+        newLeaderboard = [...database.leaderboard, objectToWrite];
         fs.writeFileSync(
           json_database,
           JSON.stringify({
